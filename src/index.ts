@@ -1,5 +1,7 @@
 import type { Plugin } from "rollup"
 import * as favicons from "favicons"
+import { resolve } from "path"
+import { promises as fs } from "fs"
 
 const generateManifest = (options: PWAOptions) => Object.assign({
 	"$schema": "https://json.schemastore.org/web-manifest-combined.json"
@@ -54,20 +56,23 @@ interface WebManifest {
 	
 }
 
-interface PWAOptions {
+export interface PWAOptions {
 	icon_url: string;
+	manifest_url: string
 	manifest: WebManifest;
 }
 
 export default function pwa(options: PWAOptions): Plugin {
     return {
-        name: 'pwa', // this name will show up in warnings and errors
-        load(id) {
-            if (id === 'virtual-module') {
-                return 'export default "This is virtual!"'; // the source code for "virtual-module"
-            }
-            return null; // other ids should be handled as usually
-        }
+        name: 'pwa',
+		load() {
+			this.addWatchFile(resolve(options.icon_url));
+
+			return null
+		},
+		generateBundle() {
+			fs.writeFile(resolve(options.manifest_url), JSON.stringify(generateManifest(options)))
+		}
     };
 }
   
