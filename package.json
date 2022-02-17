@@ -27,5 +27,8 @@
   "homepage": "https://github.com/LeoDog896/rollup-plugin-pwa#readme",
   "devDependencies": {
     "rollup": "^2.67.2"
+  },
+  "dependencies": {
+    "favicons": "^7.0.0-beta.3"
   }
 }
