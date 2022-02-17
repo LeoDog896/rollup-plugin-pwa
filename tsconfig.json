@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "esnext",
+        "strict": true,
+        "moduleResolution": "node",
+        "outDir": "lib/",
+        "sourceMap": false,
+        "declarationDir": "lib/",
+        "declaration": true,
+    },
+    "files": [
+        "src/**"
+    ]
+}
